@@ -1,11 +1,11 @@
-# EXPERIMENT-03-INTERFACING-DIGITAL-SENSOR-WITH-EDGE-DEVELOPMENT-BOARD-
+# EXPERIMENT-03-INTERFACING-DIGITAL-SENSOR-WITH-EDGE-DEVELOPMENT-BOARD
  
 ---
 
-### **NAME:**  
-### **DEPARTMENT:**  
-### **ROLL NO:**  
-### **DATE OF EXPERIMENT:**  
+### NAME: VIDHYADHARAN R
+### DEPARTMENT: CSE(IoT) 
+### ROLL NO: 212222110053
+### DATE OF EXPERIMENT: 10/03/2025
 
 ---
 
@@ -53,7 +53,10 @@ The sensor measures **temperature using a thermistor** and **humidity using a ca
 
 ---
 
-## **CIRCUIT DIAGRAM:**  
+## **CIRCUIT DIAGRAM:** 
+
+![Screenshot 2025-03-06 112636](https://github.com/user-attachments/assets/5f5b511a-000f-487a-ae39-8a29ac9862ae)
+
 ### **Connections:**  
 
 | DHT22 Pin | Raspberry Pi Pico Pin |
@@ -66,17 +69,36 @@ The sensor measures **temperature using a thermistor** and **humidity using a ca
 ---
 
 ## **PROGRAM (MicroPython)**  
-``` ```
+```
+import dht
+import machine
+import time
 
----
+# Define DHT22 sensor pin(GPIO PIN)
+dht_pin = machine.Pin(15,machine.Pin.IN,machine.Pin.PULL_UP)
+sensor = dht.DHT22(dht_pin)
 
+while True:
+    try:
+        sensor.measure()
+        temp = sensor.temperature() #Get temperature in Celsius
+        hum = sensor.humidity() #Get humidity
+
+        print(f"Temperature: {temp:.1f} C")
+        print(f"Humidity: {hum:.1f}%")
+
+    except Exception as e:
+        print("Error reading sensor:",e)
+
+    time.sleep(2) # Wait for 2 seconds before next reading
+```
 ## **OUTPUT:**  
- 
 ---
+![Screenshot 2025-03-06 112700](https://github.com/user-attachments/assets/52e07708-a18b-4607-aee0-cc1de399c864)
 
-  
+![Screenshot 2025-03-06 113017](https://github.com/user-attachments/assets/f1f10d97-990c-4792-9641-c64d578c14e0)
+
 ---
-
 ## **RESULT:**  
 The **DHT22 sensor** was successfully interfaced with the **Raspberry Pi Pico**, and real-time **temperature and humidity data** were read and displayed. The LEDs responded correctly when the threshold limits were exceeded.
 
